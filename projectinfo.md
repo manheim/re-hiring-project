@@ -71,3 +71,31 @@ npm run build
 npm run e2e
 ```
 
+C. Containerize Application
+
+- [Onetime setup of ECR and IAM User](https://docs.aws.amazon.com/AmazonECR/latest/userguide/get-set-up-for-amazon-ecr.html).
+
+- Build and Push Docker Image to ECR Repo (Repository name and region are assumed to be cxhr and us-east-1. Update script below if differently setup in step above)
+
+```
+$(aws ecr get-login --no-include-email --region=us-east-1)
+export REPO_URL=$(aws ecr describe-repositories --repository-names=cxhr --query="repositories[0].repositoryUri" --output text --region=us-east-1)
+set +e
+docker pull $REPO_URL:latest
+set -e
+docker build -t $REPO_URL:latest .
+docker push $REPO_URL:latest
+```
+
+D. Deploy Application to AWS EKS
+
+- [Onetime setup of VPC and EKS Cluster](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html). 
+- [Onetime setup of EKS Worker Nodes](https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html)
+- Also refer to terraform script in automation folder to automate maintenance of this infrastructure for different environments.
+
+- Run application in EKS
+```
+kubectl run cxhr --image=<$REPO_URL>:latest --namespace dashboard
+```
+
+
