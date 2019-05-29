@@ -14,10 +14,8 @@ Though team has not yet decided on CI/CD tool, I have quickly structured a sampl
 
 This folder contains code and configuration for automating maintenance of infrastructure for application deployment as well as tools such as Jenkins and ECR for development teams. [Terraform AWS modules](https://github.com/terraform-aws-modules) are used to setup VPC, EKS cluster and nodes for application deployment. In similar manner CI/CD tools required for the project i.e. Jenkins master and agents, ECR (Amazon Elastic Container Registry) can be maintained using Terraform scripts (For this assignment they were created manually).
 
-### scripts
 
-This folder contains scripts and instructions for team to execute manually before fully atutomating the deployment.
-
+### Tools
 Following tools will be required on personal workstation or CI/CD tool to deploy application.
 
 - Git & Git Bash (https://tortoisegit.org/)
@@ -29,10 +27,12 @@ Following tools will be required on personal workstation or CI/CD tool to deploy
 - aws-iam-authenticator (https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 - terraform (https://www.terraform.io/downloads.html)
 
+
+### Manual Steps
 Follow steps listed below to build, package and deploy application to AWS. These steps can be used to automate CI/CD pipeline through Jenkinsfile or another configureation file. Assumption: Tools listed above have been installed and configured.
 
 
-#### A. Project Setup
+#### A. Application Setup
 
 - Create a project folder. 
 ```
@@ -45,7 +45,7 @@ git clone https://github.com/jm-cxhr/re-hiring-project.git
 ```
 
 
-#### B. Verify and & Build 
+#### B. Verify and Build Application 
 
 - Install dependent npm packages
 ```
