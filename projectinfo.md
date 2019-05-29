@@ -32,7 +32,7 @@ Following tools will be required on personal workstation or CI/CD tool to deploy
 Follow steps listed below to build, package and deploy application to AWS. These steps can be used to automate CI/CD pipeline through Jenkinsfile or another configureation file. Assumption: Tools listed above have been installed and configured.
 
 
-A. Project Setup
+#### A. Project Setup
 
 - Create a project folder. 
 ```
@@ -45,7 +45,7 @@ git clone https://github.com/jm-cxhr/re-hiring-project.git
 ```
 
 
-B. Verify and & Build 
+#### B. Verify and & Build 
 
 - Install dependent npm packages
 ```
@@ -74,7 +74,7 @@ npm run e2e
 ```
 
 
-C. Containerize Application
+#### C. Containerize Application
 
 - [Onetime setup of ECR and IAM User](https://docs.aws.amazon.com/AmazonECR/latest/userguide/get-set-up-for-amazon-ecr.html).
 
@@ -91,7 +91,7 @@ docker push $REPO_URL:latest
 ```
 
 
-D. Deploy Application to AWS EKS
+#### D. Deploy Application to AWS EKS
 
 - [Onetime setup of VPC and EKS Cluster](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html). 
 - [Onetime setup of EKS Worker Nodes](https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html)
