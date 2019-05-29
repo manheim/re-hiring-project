@@ -21,6 +21,7 @@ This folder contains scripts and instructions for team to execute manually befor
 Following tools will be required on personal workstation or CI/CD tool to deploy application.
 
 - Git & Git Bash (https://tortoisegit.org/)
+- curl (https://curl.haxx.se/download.html)
 - Node JS version > 10 (https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi)
 - Docker (https://docs.docker.com/docker-for-windows/install/)
 - aws cli (https://aws.amazon.com/cli/)
@@ -48,5 +49,25 @@ B. Verify and & Build
 ```
 cd re-hiring-project/insight-dashboard/app
 npm install
+```
+
+- Validate Format and Syntax (Lint)
+```
+npm run lint
+```
+
+- Unit Test Code (Ignore unit test failures for time being)
+```
+npm run test-ci
+```
+
+- Build application
+```
+npm run build
+```
+
+- End-To-End Test
+```
+npm run e2e
 ```
 
