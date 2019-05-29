@@ -10,14 +10,10 @@ provider "aws" {
   region  = "${var.region}"
 }
 
-provider "random" {
-  version = "= 1.3.1"
-}
-
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "${var.appname}-${var.environment}-eks-lt-${random_string.suffix.result}"
+  cluster_name = "${var.appname}-${var.environment}-eks-lt"
 }
 
 resource "aws_security_group" "worker_group_mgmt_one" {
@@ -33,11 +29,6 @@ resource "aws_security_group" "worker_group_mgmt_one" {
       "10.0.0.0/8",
     ]
   }
-}
-
-resource "random_string" "suffix" {
-  length  = 8
-  special = false
 }
 
 module "vpc" {
