@@ -22,12 +22,13 @@ Following tools will be required on personal workstation or CI/CD tool to deploy
 
 - Git & Git Bash (https://tortoisegit.org/)
 - Node JS version > 10 (https://nodejs.org/dist/v10.16.0/node-v10.16.0-x64.msi)
+- Docker (https://docs.docker.com/docker-for-windows/install/)
 - aws cli (https://aws.amazon.com/cli/)
 - kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - aws-iam-authenticator (https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 - terraform (https://www.terraform.io/downloads.html)
 
-Follow steps listed below to build, package and deploy application to AWS.
+Follow steps listed below to build, package and deploy application to AWS. These steps can be used to automate CI/CD pipeline through Jenkinsfile or another configureation file. Assumption: Tools listed above have been installed and configured.
 
 A. Project Setup
 
@@ -40,3 +41,12 @@ mkdir projects
 cd projects
 git clone https://github.com/jm-cxhr/re-hiring-project.git
 ```
+
+B. Verify and & Build 
+
+- Install dependent npm packages
+```
+cd re-hiring-project/insight-dashboard/app
+npm install
+```
+
