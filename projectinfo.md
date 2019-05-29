@@ -99,7 +99,35 @@ docker push $REPO_URL:latest
 
 - Run application in EKS
 ```
-kubectl run cxhr --image=<$REPO_URL>:latest --namespace dashboard
+kubectl run cxhr --image=<$REPO_URL>:latest --port 4200 --namespace kube-public
+kubectl expore deployment cxhr --type=LoadBalance --name cxhr --namespace kube-public
 ```
 
 
+#### E. Smoke test Application 
+
+- Identify Application URL
+
+```
+kubectl describe service vchr --namespace kube-public
+```
+
+- Open web browser and paste LoadBalancer Ingress and Port values from out put of previous step as follows
+```
+http://<LoadBalancer Ingress>:<Port>
+```
+
+### Note
+
+- Because it requires atleas t2.large instance type fr Kubernetes to work in stable manner, the deployment may not fit within Free Tier in AWS.
+
+- Though this is a working prototype, there are many possible enhanacments that can be made to the PipeLine apart from adding business functionality.
+
+  - Triggering of build / deployment upon code commit
+  - CanAry Deployments
+  - Centralized Logging either to AWS CloudWatch or AWS Elastic Search Domain
+  - Monitoring using Prometheus
+  - Alert Notification to Slack or FlowDock
+  - Terraform scripts to automate management of CI/CD tool stack such as Jenkins, ECR etc
+
+- I spent about 4 hrs over 2 days to complete this assignment. About an hour to research and refresh some commands. Couple of hours to setup whole tool stack and pipeline. And an hour of documenting.

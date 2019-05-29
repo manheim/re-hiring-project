@@ -7,4 +7,4 @@ COPY src /app/src/
 
 RUN npm install
 
-CMD ./node_modules/.bin/ng serve --host 0.0.0.0
+CMD ./node_modules/.bin/ng serve --host 0.0.0.0 --disableHostCheck true
