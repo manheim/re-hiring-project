@@ -119,7 +119,7 @@ http://<LoadBalancer Ingress>:<Port>
 
 ### Note
 
-- Because it requires atleas t2.large instance type fr Kubernetes to work in stable manner, the deployment may not fit within Free Tier in AWS.
+- Because it requires atleas t2.large instance type for stable Kubernetes cluster, the deployment may not fit within Free Tier in AWS.
 
 - Though this is a working prototype, there are many possible enhanacments that can be made to the PipeLine apart from adding business functionality.
 
@@ -129,5 +129,6 @@ http://<LoadBalancer Ingress>:<Port>
   - Monitoring using Prometheus
   - Alert Notification to Slack or FlowDock
   - Terraform scripts to automate management of CI/CD tool stack such as Jenkins, ECR etc
+  - Convert into a pattern/framework for other development teams to use
 
 - I spent about 4 hrs over 2 days to complete this assignment. About an hour to research and refresh some commands. Couple of hours to setup whole tool stack and pipeline. And an hour of documenting.
