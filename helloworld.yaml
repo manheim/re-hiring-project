@@ -1,0 +1,41 @@
+#In HTML format set up a Web server and host a simple HTML page with this text. Create S3 bucket. Upload the HTML file. Set the permissions. 
+#Enable static Web hosting. Get Website URL and acceed the website URL. 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+</body>
+</html>
+
+
+# You can also create AWS Lambda Function. Create API Gateway and API resource. Deploy API and access the Web based visualization tool. 
+exports.handler = async (event) => {
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify('Hello, World'),
+    };
+    return response;
+};
+
+
+
+#You can set up Dev and Prod Stage. Lamda variables and access the environment. 
+exports.handler = async (event) => {
+    const environment = process.env.ENVIRONMENT || 'dev';
+    let greeting = 'Hello, World';
+
+    if (environment === 'prod') {
+        greeting = 'Production Hello, World';
+    } else {
+        greeting = 'Development Hello, World';
+    }
+
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify(greeting),
+    };
+    return response;
+};
