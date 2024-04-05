@@ -3,7 +3,9 @@ name: Frontend Workflow
 
 on:
   push:
-    introducing some bad syntax
+    branches:
+      - master
+      - develop
     paths:
       - 'frontend/**'
   pull_request:
