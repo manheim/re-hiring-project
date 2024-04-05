@@ -1,4 +1,7 @@
 # .github/workflows/workflow-validation.yml
+# This workflow is designed to validate changes made to the other workflows 
+# So that development on workflows does not break the code
+
 name: Workflow Validation
 
 on:
@@ -25,5 +28,3 @@ jobs:
 
       - name: Lint YAML files
         uses: ibiqlik/action-yamllint@v3
-        with:
-          config_file: .yamllint.yml
