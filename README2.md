@@ -29,6 +29,7 @@ This project consists of a Terraform repository to provision infrastructure, and
 - `/terraform`: Contains Terraform configurations for AWS infrastructure provisioning.
 - `/frontend`: Holds the source code for the front-end application.
 - `/backend`: Contains the source code for the back-end application.
+- `/scripts`: Contains important scripts that are used by the project.
 - `/.github/workflows`: Stores the GitHub Actions workflows for CI/CD.
 
 ## Setup and Configuration
