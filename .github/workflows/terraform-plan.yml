@@ -48,7 +48,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const message = `Terraform plan completed. If ready to apply, 
+            const message = `Terraform plan completed. If ready to apply,
             type '#terraform apply' in a comment on this pull request.`;
             const { owner, repo } = context.repo;
             const issue_number = context.issue.number;
