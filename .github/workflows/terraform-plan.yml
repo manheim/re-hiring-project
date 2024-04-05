@@ -43,23 +43,5 @@ jobs:
         run: terraform plan
         working-directory: ./terraform
 
-  terraform-apply:
-    runs-on: ubuntu-latest
-    needs: terraform-plan
-    if: ${{ needs.terraform-plan.result == 'success' &&
-        github.event_name == 'issue_comment' &&
-        github.event.action == 'created' &&
-        contains(github.event.comment.body, '#terraform apply') }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Terraform Apply
-        run: ./project/scripts/apply_terraform.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Output Instruction
-        run: echo "After reviewing the Terraform plan, type
-          #terraform apply in a comment to trigger the apply process."
+        run: echo "Terraform plan completed. If ready to apply, type '#terraform apply' in a comment on this pull request."
