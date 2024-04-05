@@ -37,3 +37,42 @@ resource "aws_subnet" "dev_private_subnet" {
     Name = "dev-private-subnet-${count.index + 1}"
   }
 }
+
+resource "aws_lb" "dev_alb" {
+  name               = "dev-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.dev_alb_sg.id]
+  subnets            = aws_subnet.dev_public_subnet[*].id
+
+  enable_deletion_protection = false
+
+  tags = {
+    Name = "dev-alb"
+  }
+}
+
+resource "aws_security_group" "dev_alb_sg" {
+  name        = "dev-alb-sg"
+  description = "Security group for dev ALB"
+
+  vpc_id = aws_vpc.dev_vpc.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "dev-alb-sg"
+  }
+}
