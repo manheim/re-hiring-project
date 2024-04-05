@@ -59,6 +59,6 @@ if [ -d ".terraform" ] && [ "$(ls -A .terraform)" ]; then
     echo "Terraform has already been initialized."
 else
     echo "Running 'terraform init' to initialize the Terraform environment with remote state management"
-    terraform init
+    cd ../terraform/backend/ && terraform init
     echo "Terraform has been initialized with remote state management."
 fi
