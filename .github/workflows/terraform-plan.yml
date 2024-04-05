@@ -43,6 +43,19 @@ jobs:
         run: terraform plan
         working-directory: ./terraform
 
-      - name: Output Instruction
-        run: echo "Terraform plan completed. If ready to apply,
-          type '#terraform apply' in a comment on this pull request."
+      - name: Create PR Comment
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const message = "Terraform plan completed. If ready to apply,
+            type '#terraform apply' in a comment on this pull request.";
+            const { context, github } = require('@actions/github');
+            const { owner, repo } = context.repo;
+            const { number } = context.issue;
+            github.issues.createComment({
+              owner,
+              repo,
+              issue_number: number,
+              body: message
+            });
