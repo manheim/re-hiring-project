@@ -33,12 +33,14 @@ jobs:
       - name: Terraform Plan
         id: terraform-plan
         run: terraform plan
-        continue-on-error: true
 
   terraform-apply:
     runs-on: ubuntu-latest
     needs: terraform-plan
-    if: ${{ needs.terraform-plan.result == 'success' && github.event_name == 'issue_comment' && github.event.action == 'created' && contains(github.event.comment.body, '#terraform apply') }}
+    if: ${{ needs.terraform-plan.result == 'success' &&
+        github.event_name == 'issue_comment' &&
+        github.event.action == 'created' &&
+        contains(github.event.comment.body, '#terraform apply') }}
 
     steps:
       - name: Checkout code
@@ -50,4 +52,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Output Instruction
-        run: echo "After reviewing the Terraform plan, type #terraform apply in a comment to trigger the apply process."
+        run: echo "After reviewing the Terraform plan, type
+          #terraform apply in a comment to trigger the apply process."
