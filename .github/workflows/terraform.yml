@@ -43,19 +43,9 @@ jobs:
         run: terraform plan
         working-directory: ./terraform
 
-      - name: Create PR Comment
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const message = `Terraform plan completed. If ready to apply,
-            type '#terraform apply' in a comment on this pull request.`;
-            const issue_number = context.issue.number;
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            await github.rest.issues.createComment({
-              owner,
-              repo,
-              issue_number,
-              body: message
-            });
+      - name: Terraform Apply
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: terraform apply -auto-approve
+        working-directory: ./terraform
