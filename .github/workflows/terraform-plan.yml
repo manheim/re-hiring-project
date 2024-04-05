@@ -48,11 +48,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const message = `Terraform plan completed. If ready to apply,
-            type '#terraform apply' in a comment on this pull request.`;
-            const { owner, repo } = context.repo;
+            const message = `Type #terraform apply to apply the changes.`;
             const issue_number = context.issue.number;
-            github.rest.issues.createComment({
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            await github.rest.issues.createComment({
               owner,
               repo,
               issue_number,
