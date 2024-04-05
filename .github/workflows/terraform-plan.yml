@@ -44,4 +44,5 @@ jobs:
         working-directory: ./terraform
 
       - name: Output Instruction
-        run: echo "Terraform plan completed. If ready to apply, type '#terraform apply' in a comment on this pull request."
+        run: echo "Terraform plan completed. If ready to apply,
+          type '#terraform apply' in a comment on this pull request."
