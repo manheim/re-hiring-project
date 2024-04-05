@@ -1,4 +1,3 @@
-# .github/workflows/terraform.yml
 name: Terraform Workflow
 
 on:
@@ -14,6 +13,8 @@ on:
       - develop
     paths:
       - 'terraform/**'
+  issue_comment:
+    types: [created]
 
 jobs:
   terraform-plan:
@@ -30,4 +31,23 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
+        id: terraform-plan
         run: terraform plan
+        continue-on-error: true
+
+  terraform-apply:
+    runs-on: ubuntu-latest
+    needs: terraform-plan
+    if: ${{ needs.terraform-plan.result == 'success' && github.event_name == 'issue_comment' && github.event.action == 'created' && contains(github.event.comment.body, '#terraform apply') }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Terraform Apply
+        run: ./project/scripts/apply_terraform.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Output Instruction
+        run: echo "After reviewing the Terraform plan, type #terraform apply in a comment to trigger the apply process."
