@@ -1,5 +1,5 @@
 # .github/workflows/workflow-validation.yml
-# This workflow is designed to validate changes made to the other workflows 
+# This workflow is designed to validate changes made to the other workflows
 # So that development on workflows does not break the code
 
 name: Workflow Validation
