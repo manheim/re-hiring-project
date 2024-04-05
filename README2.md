@@ -15,6 +15,8 @@
 ## Description
 This project consists of a Terraform repository to provision infrastructure, and a basic web application, along with the CI/CD pipelines needed to support these resources. The project is designed to demonstrate best practices in cloud infrastructure management, application deployment, and continuous integration and delivery processes.
 
+![Architecture](Architecture.drawio.png)
+
 ## Prerequisites
 - Linux Machine or equialent bash terminal to interact with the project files
 - AWS account with necessary permissions
