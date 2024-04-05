@@ -47,15 +47,14 @@ jobs:
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: >
-            const message = `Terraform plan completed. If ready to apply,
+          script: |
+            const message = `Terraform plan completed. If ready to apply, 
             type '#terraform apply' in a comment on this pull request.`;
-            const { context, github } = require('@actions/github');
             const { owner, repo } = context.repo;
-            const { number } = context.issue;
-            github.issues.createComment({
-              owner: owner,
-              repo: repo,
-              issue_number: number,
+            const issue_number = context.issue.number;
+            github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
               body: message
             });
