@@ -1,0 +1,27 @@
+# .github/workflows/backend.yml
+name: Backend Workflow
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches:
+      - master
+      - develop
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      #TODO 
+      # Add steps for setting up the environment, installing dependencies,
+      # running tests, and building backend API

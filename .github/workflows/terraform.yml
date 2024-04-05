@@ -1,0 +1,33 @@
+# .github/workflows/terraform.yml
+name: Terraform Workflow
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - 'terraform/**'
+  pull_request:
+    branches:
+      - master
+      - develop
+    paths:
+      - 'terraform/**'
+
+jobs:
+  terraform-plan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
