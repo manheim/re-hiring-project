@@ -70,7 +70,7 @@ resource "aws_lb" "dev_alb_frontend" {
   name               = "dev-alb-frontend"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.dev_alb_sg.id]
+  security_groups    = [aws_security_group.dev_alb_sg_frontend.id]
   subnets            = aws_subnet.dev_public_subnet[*].id
 
   enable_deletion_protection = false
@@ -84,7 +84,7 @@ resource "aws_lb" "dev_alb_backend" {
   name               = "dev-alb-backend"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.dev_alb_sg.id]
+  security_groups    = [aws_security_group.dev_alb_sg_backend.id]
   subnets            = aws_subnet.dev_private_subnet[*].id
 
   enable_deletion_protection = false
