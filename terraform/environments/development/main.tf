@@ -98,8 +98,14 @@ resource "aws_db_instance" "dev_rds" {
   engine               = "mysql"
   instance_class       = "db.t2.micro"
   allocated_storage    = 20
+  username             = data.aws_secretsmanager_secret.db_password_username.secret_string["username"]
+  password             = data.aws_secretsmanager_secret.db_password_secret.secret_string["dev-rds-password"]
   db_subnet_group_name = aws_db_subnet_group.dev_db_subnet_group.name
   vpc_security_group_ids = [aws_security_group.dev_rds_sg.id]
+}
+
+data "aws_secretsmanager_secret" "db_password_secret" {
+  name = "dev-rds-password" 
 }
 
 resource "aws_db_subnet_group" "dev_db_subnet_group" {
