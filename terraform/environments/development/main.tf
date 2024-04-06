@@ -99,7 +99,7 @@ resource "aws_db_instance" "dev_rds" {
   instance_class       = "db.t2.micro"
   allocated_storage    = 20
   username             = "dev-rds-username"
-  password             = data.aws_secretsmanager_secret.db_password_secret.dev-rds-password
+  password             = data.aws_secretsmanager_secret.db_password_secret.secret
   db_subnet_group_name = aws_db_subnet_group.dev_db_subnet_group.name
   vpc_security_group_ids = [aws_security_group.dev_rds_sg.id]
 }
