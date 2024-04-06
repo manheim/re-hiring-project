@@ -38,6 +38,34 @@ resource "aws_subnet" "dev_private_subnet" {
   }
 }
 
+resource "aws_internet_gateway" "dev_igw" {
+  vpc_id = aws_vpc.dev_vpc.id
+
+  tags = {
+    Name = "dev-igw"
+  }
+}
+
+resource "aws_route_table" "dev_public_rt" {
+  vpc_id = aws_vpc.dev_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.dev_igw.id
+  }
+
+  tags = {
+    Name = "dev-public-rt"
+  }
+}
+
+resource "aws_route_table_association" "dev_public_rta" {
+  count = length(aws_subnet.dev_public_subnet)
+
+  subnet_id      = aws_subnet.dev_public_subnet[count.index].id
+  route_table_id = aws_route_table.dev_public_rt.id
+}
+
 resource "aws_lb" "dev_alb" {
   name               = "dev-alb"
   internal           = false
