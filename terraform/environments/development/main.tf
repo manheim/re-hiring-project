@@ -66,8 +66,8 @@ resource "aws_route_table_association" "dev_public_rta" {
   route_table_id = aws_route_table.dev_public_rt.id
 }
 
-resource "aws_lb" "dev_alb" {
-  name               = "dev-alb"
+resource "aws_lb" "dev_alb_frontend" {
+  name               = "dev-alb-frontend"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.dev_alb_sg.id]
@@ -80,9 +80,23 @@ resource "aws_lb" "dev_alb" {
   }
 }
 
-resource "aws_security_group" "dev_alb_sg" {
-  name        = "dev-alb-sg"
-  description = "Security group for dev ALB"
+resource "aws_lb" "dev_alb_backend" {
+  name               = "dev-alb-backend"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.dev_alb_sg.id]
+  subnets            = aws_subnet.dev_private_subnet[*].id
+
+  enable_deletion_protection = false
+
+  tags = {
+    Name = "dev-alb"
+  }
+}
+
+resource "aws_security_group" "dev_alb_sg_frontend" {
+  name        = "dev-alb-sg-frontend"
+  description = "Security group for the frontend dev ALB"
 
   vpc_id = aws_vpc.dev_vpc.id
 
@@ -101,6 +115,31 @@ resource "aws_security_group" "dev_alb_sg" {
   }
 
   tags = {
-    Name = "dev-alb-sg"
+    Name = "dev-alb-sg-frontend"
+  }
+}
+
+resource "aws_security_group" "dev_alb_sg_backend" {
+  name        = "dev-alb-sg-backend"
+  description = "Security group for the backend dev ALB"
+
+  vpc_id = aws_vpc.dev_vpc.id
+#todo: update the cidr block with backend service
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+#todo: update the cidr block with backend service
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "dev-alb-sg-backend"
   }
 }
