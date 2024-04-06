@@ -17,7 +17,7 @@ on:
     types: [created]
 
 jobs:
-  terraform-plan:
+  terraform-workflow:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,25 +27,25 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Terraform init
+      - name: Terraform init development
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         id: terraform-init
         run: terraform init
-        working-directory: ./terraform
+        working-directory: ./terraform/environments/development
 
-      - name: Terraform Plan
+      - name: Terraform Plan development
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         id: terraform-plan
         run: terraform plan
-        working-directory: ./terraform
+        working-directory: ./terraform/environments/development
 
-      - name: Terraform Apply
+      - name: Terraform Apply development
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform apply -auto-approve
-        working-directory: ./terraform
+        working-directory: ./terraform/environments/development
