@@ -76,13 +76,13 @@ resource "aws_lb" "dev_alb_frontend" {
   enable_deletion_protection = false
 
   tags = {
-    Name = "dev-alb"
+    Name = "dev-alb-frontend"
   }
 }
 
 resource "aws_lb" "dev_alb_backend" {
   name               = "dev-alb-backend"
-  internal           = false
+  internal           = true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.dev_alb_sg_backend.id]
   subnets            = aws_subnet.dev_private_subnet[*].id
@@ -90,7 +90,34 @@ resource "aws_lb" "dev_alb_backend" {
   enable_deletion_protection = false
 
   tags = {
-    Name = "dev-alb"
+    Name = "dev-alb-backend"
+  }
+}
+
+resource "aws_db_instance" "dev_rds" {
+  engine               = "mysql"
+  instance_class       = "db.t2.micro"
+  allocated_storage    = 20
+  db_subnet_group_name = aws_db_subnet_group.dev_db_subnet_group.name
+  vpc_security_group_ids = [aws_security_group.dev_rds_sg.id]
+}
+
+resource "aws_db_subnet_group" "dev_db_subnet_group" {
+  name       = "dev-db-subnet-group"
+  subnet_ids = aws_subnet.dev_private_subnet[*].id
+
+  tags = {
+    Name = "dev-db-subnet-group"
+  }
+}
+
+resource "aws_security_group" "dev_rds_sg" {
+  vpc_id = aws_vpc.dev_vpc.id
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    security_groups = [aws_security_group.dev_alb_sg_backend.id]
   }
 }
 
@@ -124,19 +151,18 @@ resource "aws_security_group" "dev_alb_sg_backend" {
   description = "Security group for the backend dev ALB"
 
   vpc_id = aws_vpc.dev_vpc.id
-#todo: update the cidr block with backend service
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.dev_alb_sg_frontend.id]
   }
 #todo: update the cidr block with backend service
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
   tags = {
