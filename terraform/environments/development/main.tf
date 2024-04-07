@@ -96,7 +96,7 @@ resource "aws_lb" "dev_alb_backend" {
 
 resource "aws_db_instance" "dev_rds" {
   engine               = "mysql"
-  instance_class       = "db.t2.micro"
+  instance_class       = "db.t3.micro"
   allocated_storage    = 20
   username = jsondecode(data.aws_secretsmanager_secret_version.db_credentials.secret_string)["username"]
   password = jsondecode(data.aws_secretsmanager_secret_version.db_credentials.secret_string)["password"]
