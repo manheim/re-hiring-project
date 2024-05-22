@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello world</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #0f0f0f;
+            color: #00ff99;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #00ff99, 0 0 40px #00ff99;
+            position: relative;
+            animation: glow 1.5s ease-in-out infinite alternate, move 3s infinite;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #00ff99, 0 0 40px #00ff99;
+            }
+            to {
+                text-shadow: 0 0 20px #00ff99, 0 0 30px #00ff99, 0 0 40px #00ff99, 0 0 50px #00ff99;
+            }
+        }
+
+        @keyframes move {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(0); }
+            75% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <script>
+        // JavaScript can be used for additional interactivity or animations if needed
+        // This example just logs a message to the console
+        console.log('Hello World: Futuristic DevOps Theme');
+    </script>
+</body>
+</html>
