@@ -1,0 +1,13 @@
+hello-world-app/
+├── app/
+│   ├── Dockerfile
+│   └── app.py
+├── terraform/
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── variables.tf
+│   └── ecs_task_definition.tf
+├── scripts/
+│   ├── deploy.sh
+│   └── teardown.sh
+└── README.md
