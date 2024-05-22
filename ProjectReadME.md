@@ -22,3 +22,5 @@ Steps:
 
 5) **Testing The Website:** Once the setup is complete, you can test the static website by accessing it through the S3 bucket website URL
 
+
+Bucket website endpoint: http://coxautohelloworldwebsite2024.s3-website-us-east-1.amazonaws.com
