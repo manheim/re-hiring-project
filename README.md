@@ -27,3 +27,4 @@ A new development team is tasked with creating a web based visualization tool. Y
 * Don’t reinvent the wheel
 * Commit often and don't squash commits
 * Don’t spend more than a few hours on the challenge. If some requirements could not be completed, let us know why.
+* Posts to this github repository are publicly available to anyone. Don't post secrets or proprietary code.
